@@ -10,11 +10,11 @@ public class Demo {
      */
     interface LogExample {
         /** The number of fields that must be found. */
-        public static final int NUM_FIELDS = 9;
+        public static final int NUM_FIELDS = 7;
 
         /** The sample log entry to be parsed. */
 
-        public static final String logEntryLine = "123.45.67.89 - - [27/Oct/2000:09:27:09 -0400] \"GET /java/javaResources.html HTTP/1.0\" 200 10450 \"-\" \"Mozilla/4.6 [en] (X11; U; OpenBSD 2.8 i386; Nav)\"";
+        public static final String logEntryLine = "123.45.67.89 - - [27/Oct/2000:09:27:09 -0400] \"GET /java/javaResources.html HTTP/1.0\" 200 10450";
     }
 
 
@@ -25,13 +25,15 @@ public class Demo {
 
         public static void main(String argv[]) {
 
-            String logEntryPattern = "^([\\d.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(.+?)\" (\\d{3}) (\\d+) \"([^\"]+)\" \"([^\"]+)\"";
+            String logEntryPattern = "^([\\d.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(.+?)\" (\\d{3}) (\\d+)";
 
             System.out.println("Using RE Pattern:");
             System.out.println(logEntryPattern);
+            System.out.println();
 
             System.out.println("Input line is:");
             System.out.println(logEntryLine);
+            System.out.println();
 
             Pattern p = Pattern.compile(logEntryPattern);
             Matcher matcher = p.matcher(logEntryLine);
@@ -46,9 +48,6 @@ public class Demo {
             System.out.println("Request: " + matcher.group(5));
             System.out.println("Response: " + matcher.group(6));
             System.out.println("Bytes Sent: " + matcher.group(7));
-            if (!matcher.group(8).equals("-"))
-                System.out.println("Referer: " + matcher.group(8));
-            System.out.println("Browser: " + matcher.group(9));
         }
     }
 }
